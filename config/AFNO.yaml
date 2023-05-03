@@ -45,7 +45,7 @@ full_field: &FULL_FIELD
   orography_path: None
 
   log_to_screen: !!bool True
-  log_to_wandb: !!bool True
+  log_to_wandb: !!bool False
   save_checkpoint: !!bool True
 
   enable_nhwc: !!bool False
@@ -61,9 +61,9 @@ full_field: &FULL_FIELD
 
 afno_backbone: &backbone
   <<: *FULL_FIELD
-  log_to_wandb: !!bool True
+  log_to_wandb: !!bool False
   lr: 5E-4
-  batch_size: 64
+  batch_size: 4
   max_epochs: 150
   scheduler: 'CosineAnnealingLR'
   in_channels: [0, 1 ,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
@@ -87,7 +87,7 @@ afno_backbone_finetune:
   <<: *backbone
   lr: 1E-4
   batch_size: 64
-  log_to_wandb: !!bool True
+  log_to_wandb: !!bool False
   max_epochs: 50
   pretrained: !!bool True
   two_step_training: !!bool True
@@ -120,11 +120,11 @@ precip: &precip
   out_channels: [0]
   nettype: 'afno'
   nettype_wind: 'afno'
-  log_to_wandb: !!bool True
+  log_to_wandb: !!bool False
   lr: 2.5E-4
   batch_size: 64
   max_epochs: 25
-  precip: '/pscratch/sd/p/pharring/ERA5/precip/total_precipitation'
+  precip: '/home/khw/mount/_docandria1/data/FCN_ERA5_data_v0/precip/'
   time_means_path_tp: '/pscratch/sd/p/pharring/ERA5/precip/total_precipitation/time_means.npy'
   model_wind_path: '/pscratch/sd/s/shas1693/results/era5_wind/afno_backbone_finetune/0/training_checkpoints/best_ckpt.tar'
   precip_eps: !!float 1e-5
